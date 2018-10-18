@@ -26,7 +26,7 @@ Syntax highlighted code block
 [Link](url) and ![Image](src)
 ```
 
-For more details see [GitHub Flavored Markdown](https://Rodrigodoo.github.io/blob/master/Untitled1.ipynb).
+For more details see [GitHub Flavored Markdown](https://Rodrigodoo.github.io/docs/Untitled1.ipynb).
 
 ### Jekyll Themes
 
