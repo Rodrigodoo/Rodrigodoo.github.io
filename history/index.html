@@ -137,12 +137,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <script type="text/javascript">            
            
+            percentage = last_recession.percentage;
         
-            if (last_recession.percentage <30) {
+            if (percentage <30) {
                 document.getElementById("percentage_bar").style.width = percentage+"%";
                 document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-green";
                 document.getElementById("percentage_bar").innerHTML = percentage+"%";
-            }else if (last_recession.percentage>=30 && last_recession.percentage<60) {
+            }else if (percentage>=30 && last_recession.percentage<60) {
                 document.getElementById("percentage_bar").style.width = percentage+"%";
                 document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-orange";
                 document.getElementById("percentage_bar").innerHTML = percentage+"%";
