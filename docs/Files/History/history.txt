@@ -1,0 +1,5 @@
+As of the current version of this website the previous results will not be displayed using the Plotly visual tool. 
+
+But in order to provide the user with the possibility of analyzing previous data, one can follow the subsequent link to the GitHub repository witch includes all previous results of this thesis.
+
+Thank you for your understanding.
