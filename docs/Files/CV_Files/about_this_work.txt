@@ -1,0 +1,15 @@
+This website is a product of the thesis developed to obtain the Masters's degree in Electrical and Computer Engineering at Instituto Superior Técnico of the University of Lisbon.
+
+This work uses three Machine Learning Algorithms: 
+
+	- Logistic Regression;
+	- Random Forest Classifier;
+	- XGBoost;
+
+All the predictions of these three algorithms are then averaged and displayed on this website with the use of the Plotly services.
+
+In the General Area, the user can view the latest predictions with four different advances, where the blue line represents the predictions of the models, the red line the real occurrence of recessions and the green line the chosen advance in the recession detection.
+
+In the History Area, the user can view all the predictions made in the past six months allowing for a historical analysis of the predictions made by the models.
+
+In the About Area, the user can know more about this work through the download of the scientific article on which this website is based and know more about me through a brief description and by downloading my Curriculum Vitae (CV).  

@@ -1,0 +1,21 @@
+My name is Rodrigo do Ó, an Electrotechnical and Computer Science graduate. I've been studying for the past few years at Instituto Superior Técnico and gained experience with Telecommunications and Computer Science. 
+
+During this time I had the opportunity to learn programming languages, like: 
+
+	- Python;
+	- C;
+	- Java;
+	- MySQL; 
+
+And computer concepts like:
+
+	- Data Analysis;
+	- Client-Server Architectures;
+	- Network Structures;
+	- Machine Learning Algorithms;
+
+I am resourceful, committed, resilient and passionate about solving problems, learning new things, and working in a team.
+
+In my spare time I love playing videos games, writing, and travelling.
+
+I'm currently looking for a job that matches my passions and my academic abilities. If you want to be in contact with me, please download my CV and use the contacts available there.
