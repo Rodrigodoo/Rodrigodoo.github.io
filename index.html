@@ -3,22 +3,31 @@
 {% load static %}
   
   <script type="text/javascript">
+  
+  var day = 14;
+  var m = 11-1;
+  var year = 2019;
+    
   var last_recession = [];
   last_recession.push({
     link: "//plot.ly/~rodrigo.do.o.barbosa/40.embed",
-    percentage: 1
+    percentage: 1,
+    lag: 0
   });
   last_recession.push({
     link: "//plot.ly/~rodrigo.do.o.barbosa/42.embed",
-    percentage: 15
+    percentage: 15,
+    lag: 6
   });
   last_recession.push({
     link: "//plot.ly/~rodrigo.do.o.barbosa/44.embed",
-    percentage: 12
+    percentage: 12,
+    lag: 12
   });
   last_recession.push({
     link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
-    percentage: 24
+    percentage: 24,
+    lag: 18
   });
 </script>
 
@@ -170,19 +179,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
         function downloadCSV(){
           choosenLag = document.forms[0].lag.value;
-
-            for (var i in recession) {
-              if (choosenLag == recession[i].lag) {
-                csv_date = recession[i].date;
-                csv_lag = recession[i].lag;
-              }
-            }
-            var msec = Date.parse(csv_date);
-
-            var d = new Date(msec);
-            var m = d.getMonth();
-            var day = d.getDate();
-            var year = d.getFullYear();
+          csv_lag = last_recession[choosenLag].lag;
+          
             var new_csv_date_format = "("+ months[m]+" "+day+", "+year+")";
             var domain = "/docs/Files/CSV_Files/"
 
