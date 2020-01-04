@@ -3,10 +3,23 @@
 {% load static %}
   
 <script type="text/javascript">
-  var last_recession = {
+  var last_recession = [];
+  last_recession.push({
+    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
+    percentage: 10
+  });
+  last_recession.push({
     link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
     percentage: 20
-  };
+  });
+  last_recession.push({
+    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
+    percentage: 30
+  });
+  last_recession.push({
+    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
+    percentage: 40
+  });
 </script>
 
 <title>USA Recession Detection</title>
@@ -137,8 +150,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <script type="text/javascript">            
            
-            percentage = last_recession.percentage;
-            plotly_link = last_recession.link;
+            percentage = last_recession[2].percentage;
+            plotly_link = last_recession[2].link;
         
             if (percentage <30) {
                 document.getElementById("percentage_bar").style.width = percentage+"%";
