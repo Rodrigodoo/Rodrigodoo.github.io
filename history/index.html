@@ -63,7 +63,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   
   
   <div class="plotly">
-    <center><iframe id ="plotly_url" width="900" height="400" frameborder="0" scrolling="yes" src="//plot.ly/~rodrigo.do.o.barbosa/46.embed?link=false"></iframe></center>
+    <center><iframe id ="plotly_url" width="900" height="400" frameborder="0" scrolling="yes" src=""></iframe></center>
   </div>
 
 
@@ -138,6 +138,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <script type="text/javascript">            
            
             percentage = last_recession.percentage;
+            plotly_link = last_recession.link;
         
             if (percentage <30) {
                 document.getElementById("percentage_bar").style.width = percentage+"%";
@@ -154,6 +155,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                 document.getElementById("percentage_bar").innerHTML = percentage+"%";
 
             }
+            
+            document.getElementById("plotly_url").src = plotly_link+"?link=false";
     
         function newPlot(){
             
