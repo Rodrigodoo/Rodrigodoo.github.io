@@ -136,17 +136,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <iframe id="csv_download" style="display:none;" src=""></iframe>
 
   <script type="text/javascript">            
-            var recession = [
-                {% for recession in list_of_recessions %}
-                    {% if not forloop.first %},{% endif %}
-                    {
-                        url: "{{ recession.url }}",
-                        date: "{{ recession.date }}",
-                        lag: "{{ recession.lag }}",
-                        percentage: "{{ recession.percentage }}"
-                    }
-                {% endfor %}
-                ];
+           
         
             if (last_recession.percentage <30) {
                 document.getElementById("percentage_bar").style.width = percentage+"%";
