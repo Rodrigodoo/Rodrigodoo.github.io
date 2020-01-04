@@ -1,26 +1,5 @@
 <!DOCTYPE html>
 <html>
-{% load static %}
-  
-<script type="text/javascript">
-  var last_recession = [];
-  last_recession.push({
-    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
-    percentage: 10
-  });
-  last_recession.push({
-    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
-    percentage: 20
-  });
-  last_recession.push({
-    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
-    percentage: 30
-  });
-  last_recession.push({
-    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
-    percentage: 40
-  });
-</script>
 
 <title>USA Recession Detection</title>
 <meta charset="UTF-8">
@@ -69,169 +48,22 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
   <!-- Header -->
-  <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-dashboard"></i> Recession Gauge</b></h5>
+   <header class="w3-container" style="padding-top:22px">
+    <h3><b><u>Previous Results:</u></b></h3>
   </header>
 
-  
-  
-  <div class="plotly">
-    <center><iframe id ="plotly_url" width="900" height="400" frameborder="0" scrolling="yes" src=""></iframe></center>
+  <!-- Work Text -->
+  <div class="text">
+    <center><iframe name ="work_text" width="900" height="400" frameborder="0" style="" src="/docs/Files/CV_Files/History/history.txt" ></iframe></center>
   </div>
 
-
-  <div class="w3-container">
-    <h5>Recession Probability</h5>
-    
-    <div class="w3-grey">
-      <div id = "percentage_bar"></div>
-    </div>
-
-    
-    
-    <!--
-    {% if last_recession.percentage < 30%}
-        <div class="w3-grey">
-          <div id= "green_percent" class="w3-container w3-center w3-padding w3-green" style="width:{{last_recession.percentage}}%">{{last_recession.percentage}}%</div>
-        </div>
-    {% elif last_recession.percentage >= 30  and last_recession.percentage < 60 %}
-        <div class="w3-grey">
-          <div id= "orange_percent" class="w3-container w3-center w3-padding w3-orange" style="width:{{last_recession.percentage}}%">{{last_recession.percentage}}%</div>
-        </div>
-    {% elif last_recession.percentage >= 60%}
-        <div class="w3-grey">
-          <div id= "red_percent" class="w3-container w3-center w3-padding w3-red" style="width:{{last_recession.percentage}}%">{{last_recession.percentage}}%</div>
-        </div>
-    {% endif %} -->
-  </div>
-
-  <div class="w3-container">
-    <div style="display: inline-block">
-    <form> 
+  <div style="display: inline-block">
         <fieldset>
-          <legend>Select Date</legend>
-          <p>
-             <label> Last Prediction Date</label>
-             <select name = "choosen_date", id="date" onchange="newPlot()">
-               {% for dates in  dates_list %}
-               <option value = "{{dates}}">{{dates}}</option>
-               {%endfor%}
-             </select>
-          </fieldset>
-    </form>
-    </div>
-    <div style="display: inline-block">
-    <form> 
-          <fieldset>
-          <legend>Select Advance</legend>
-          <p>
-             <label>Months of Advance</label>
-             <select name = "choosen_lag", id="lag" onchange="newPlot()">
-               <option value = 0>0 Months</option>
-               <option value = 6>6 Months</option>
-               <option value = 12 selected>12 Months</option>
-               <option value = 18>18 Months</option>
-             </select>
-          </fieldset>
-    </form>
-    </div>
-
-    <div style="display: inline-block">
-      <fieldset>
-        <legend>Download CSV</legend>
+        <legend>Previous Data Repository</legend>
         <p>
-          <button id="download_button" onclick="downloadCSV()">Download</button>
+          <button id="download_button" onclick="location.href='/docs/Files/CSV_Files/'">Click Here</button>
       </fieldset>
     </div>
-  </div>
-
-
-  <iframe id="csv_download" style="display:none;" src=""></iframe>
-
-  <script type="text/javascript">            
-           
-            percentage = last_recession[2].percentage;
-            plotly_link = last_recession[2].link;
-        
-            if (percentage <30) {
-                document.getElementById("percentage_bar").style.width = percentage+"%";
-                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-green";
-                document.getElementById("percentage_bar").innerHTML = percentage+"%";
-            }else if (percentage>=30 && last_recession.percentage<60) {
-                document.getElementById("percentage_bar").style.width = percentage+"%";
-                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-orange";
-                document.getElementById("percentage_bar").innerHTML = percentage+"%";
-
-            }else{
-                document.getElementById("percentage_bar").style.width = percentage+"%";
-                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-red";
-                document.getElementById("percentage_bar").innerHTML = percentage+"%";
-
-            }
-            
-            document.getElementById("plotly_url").src = plotly_link+"?link=false";
-    
-        function newPlot(){
-            
-            choosenDate = document.forms[0].date.value;
-            choosenLag = document.forms[1].lag.value;
-
-            for (var i in recession) {
-              if (choosenDate == recession[i].date && choosenLag == recession[i].lag) {
-                plotly_link = recession[i].url;
-                percentage = recession[i].percentage;
-              }
-            }
-
-            if (percentage<30) {
-                document.getElementById("percentage_bar").style.width = percentage+"%";
-                document.getElementById("percentage_bar").innerHTML = percentage+"%";
-            }else if (percentage>=30 && percentage<60) {
-                document.getElementById("percentage_bar").style.width = percentage+"%";
-                document.getElementById("percentage_bar").innerHTML = percentage+"%";
-
-            }else{
-                document.getElementById("percentage_bar").style.width = percentage+"%";
-                document.getElementById("percentage_bar").innerHTML = percentage+"%";
-
-            }
-            document.getElementById("plotly_url").src = plotly_link+"?link=false";
-            }
-
-
-            var months = [
-              'January', 'February', 'March', 'April', 'May',
-              'June', 'July', 'August', 'September',
-              'October', 'November', 'December'
-              ];
-
-          
-
-        function downloadCSV(){
-          choosenDate = document.forms[0].date.value;
-          choosenLag = document.forms[1].lag.value;
-
-
-            for (var i in recession) {
-              if (choosenDate == recession[i].date && choosenLag == recession[i].lag) {
-                csv_date = recession[i].date;
-                csv_lag = recession[i].lag;
-              }
-            }
-
-            var msec = Date.parse(csv_date);
-
-            var d = new Date(msec);
-            var m = d.getMonth();
-            var day = d.getDate();
-            var year = d.getFullYear();
-            var new_csv_date_format = "("+ months[m]+" "+day+", "+year+")";
-            var domain = "/docs/Files/CSV_Files/"
-
-          document.getElementById('csv_download').src = domain+new_csv_date_format+csv_lag+".csv";
-
-        }  
-  </script>
 
 
  <!-- Footer -->
