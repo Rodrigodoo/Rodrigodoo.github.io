@@ -1,5 +1,27 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
+  
+  <script type="text/javascript">
+  var last_recession = [];
+  last_recession.push({
+    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
+    percentage: 10
+  });
+  last_recession.push({
+    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
+    percentage: 20
+  });
+  last_recession.push({
+    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
+    percentage: 30
+  });
+  last_recession.push({
+    link: "//plot.ly/~rodrigo.do.o.barbosa/46.embed",
+    percentage: 40
+  });
+</script>
+
 <title>USA Recession Detection</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,57 +68,130 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
-  <!-- Work Header -->
+  <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-    <h3><b><u>About This Work:</u></b></h3>
+    <h5><b><i class="fa fa-dashboard"></i> Recession Gauge</b></h5>
   </header>
 
-  <!-- Work Text -->
-  <div class="text">
-    <center><iframe name ="work_text" width="900" height="400" frameborder="0" style="" src="/docs/Files/CV_Files/about_this_work.txt" ></iframe></center>
+  <div class="plotly">
+    <center><iframe id ="plotly_url" width="900" height="400" frameborder="0" scrolling="yes" src=""></iframe></center>
   </div>
 
-   <!-- Me Header -->
-  <header class="w3-container" style="padding-top:22px">
-    <h3><b><u>About Me:</u></b></h3>
-  </header>
-  <!-- Face -->
+
   <div class="w3-container">
-    <center><img src="/docs/Files/Images/face.png" width="150" height="170"></center> 
-    <p>
+    <h5>Recession Probability</h5>
+
+    <div class="w3-grey">
+      <div id = "percentage_bar"></div>
+    </div>
   </div>
 
-  <!-- Me Text -->
-  <div class="text">
-    <center><iframe name ="me_text" width="900" height="440" frameborder="0" style="" src="/docs/Files/CV_Files/about_me.txt"></iframe></center>
-  </div>
-
-  <center>
-  <div style="display: inline-block">
-      <fieldset>
-        <legend>Download CV</legend>
+  <div class="w3-container">
+    <div style="display: inline-block">
+    <form> 
+        <fieldset>
+          <legend>Select Advance</legend>
+          <p>
+             <label>Months of Advance</label>
+             <select name = "choosen_lag", id="lag" onchange="newPlot()">
+               <option value = 0>0 Months</option>
+               <option value = 1>6 Months</option>
+               <option value = 2 selected>12 Months</option>
+               <option value = 3>18 Months</option>
+             </select>
+          </p>
+        </fieldset>
+    </form>
+    </div>
+    <div style="display: inline-block">
+        <fieldset>
+        <legend>Download CSV</legend>
         <p>
-           <a href="/docs/Files/CV_Files/Rodrigo_do_O_CV.pdf" download="Rodrigo_do_O_CV" target="_blank"><button>Download</button></a>
+          <button id="download_button" onclick="downloadCSV()">Download</button>
       </fieldset>
+    </div>
+
   </div>
-  <div style="display: inline-block">
-      <fieldset>
-        <legend>Download Article</legend>
-        <p>
-          <a href="/docs/Files/Thesis_Files/Article.pdf" download="Recession_Detection_Article" target="_blank"><button>Download</button></a>
-      </fieldset>
-  </div>
-  </center>
+   
+    <iframe id="csv_download" style="display:none;" src=""></iframe>
+  <script type="text/javascript">            
+           percentage = last_recession[2].percentage;
+           plotly_link = last_recession[2].link;
+        
+            if (percentage <30) {
+                document.getElementById("percentage_bar").style.width = percentage+"%";
+                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-green";
+                document.getElementById("percentage_bar").innerHTML = percentage+"%";
+            }else if (percentage>=30 && last_recession.percentage<60) {
+                document.getElementById("percentage_bar").style.width = percentage+"%";
+                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-orange";
+                document.getElementById("percentage_bar").innerHTML = percentage+"%";
+            }else{
+                document.getElementById("percentage_bar").style.width = percentage+"%";
+                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-red";
+                document.getElementById("percentage_bar").innerHTML = percentage+"%";
+            }
+            
+            document.getElementById("plotly_url").src = plotly_link+"?link=false";
 
-  <script>
+        function newPlot(){
+            
+            choosenLag = document.forms[0].lag.value;
+          
+            percentage = last_recession[choosenLag].percentage;
+            plotly_link = last_recession[choosenLag].link;
+        
+            if (percentage <30) {
+                document.getElementById("percentage_bar").style.width = percentage+"%";
+                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-green";
+                document.getElementById("percentage_bar").innerHTML = percentage+"%";
+            }else if (percentage>=30 && last_recession.percentage<60) {
+                document.getElementById("percentage_bar").style.width = percentage+"%";
+                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-orange";
+                document.getElementById("percentage_bar").innerHTML = percentage+"%";
+            }else{
+                document.getElementById("percentage_bar").style.width = percentage+"%";
+                document.getElementById("percentage_bar").className = "w3-container w3-center w3-padding w3-red";
+                document.getElementById("percentage_bar").innerHTML = percentage+"%";
+            }
+            
+            document.getElementById("plotly_url").src = plotly_link+"?link=false";
+          
 
-    onload = function()
-{
- document.work_text.document.body.style.font = "14px arial,serif";
- document.me_text.document.body.style.font= "14px arial,serif";
-}
+        }
 
-</script>
+
+             var months = [
+              'January', 'February', 'March', 'April', 'May',
+              'June', 'July', 'August', 'September',
+              'October', 'November', 'December'
+              ];
+
+
+        function downloadCSV(){
+          choosenLag = document.forms[0].lag.value;
+
+            for (var i in recession) {
+              if (choosenLag == recession[i].lag) {
+                csv_date = recession[i].date;
+                csv_lag = recession[i].lag;
+              }
+            }
+            var msec = Date.parse(csv_date);
+
+            var d = new Date(msec);
+            var m = d.getMonth();
+            var day = d.getDate();
+            var year = d.getFullYear();
+            var new_csv_date_format = "("+ months[m]+" "+day+", "+year+")";
+            var domain = "/docs/Files/CSV_Files/"
+
+          document.getElementById('csv_download').src = domain+new_csv_date_format+csv_lag+".csv";
+
+        } 
+
+  </script>
+
 
   <!-- Footer -->
   <footer class="w3-container w3-padding-16 w3-light-grey">
