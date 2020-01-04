@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<title>USA Recession Detection</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right">USA Recession Detection</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="/docs/Files/Images/logo_ist.jpg" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome <strong>Stranger</strong></span><br>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="/" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a>
+    <a href="/history/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>
+        <a href="/about/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  About</a><br><br>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> Recession Gauge</b></h5>
+  </header>
+
+  <div class="plotly">
+    <center><iframe id ="plotly_url" width="900" height="400" frameborder="0" scrolling="yes" src="{{last_recession}}?link=false"></iframe></center>
+  </div>
+
+
+  <div class="w3-container">
+    <h5>Recession Probability</h5>
+
+    {% if last_recession.percentage < 30%}
+        <div class="w3-grey">
+          <div id= "green_percent" class="w3-container w3-center w3-padding w3-green" style="width:{{last_recession.percentage}}%">{{last_recession.percentage}}%</div>
+        </div>
+    {% elif last_recession.percentage >= 30  and last_recession.percentage < 60 %}
+        <div class="w3-grey">
+          <div id= "orange_percent" class="w3-container w3-center w3-padding w3-orange" style="width:{{last_recession.percentage}}%">{{last_recession.percentage}}%</div>
+        </div>
+    {% elif last_recession.percentage >= 60%}
+        <div class="w3-grey">
+          <div id= "red_percent" class="w3-container w3-center w3-padding w3-red" style="width:{{last_recession.percentage}}%">{{last_recession.percentage}}%</div>
+        </div>
+    {% endif %}
+  </div>
+
+  <div class="w3-container">
+    <div style="display: inline-block">
+    <form> 
+        <fieldset>
+          <legend>Select Date</legend>
+          <p>
+             <label> Last Prediction Date</label>
+             <select name = "choosen_date", id="date" onchange="newPlot()">
+               {% for dates in  dates_list %}
+               <option value = "{{dates}}">{{dates}}</option>
+               {%endfor%}
+             </select>
+          </fieldset>
+    </form>
+    </div>
+    <div style="display: inline-block">
+    <form> 
+          <fieldset>
+          <legend>Select Advance</legend>
+          <p>
+             <label>Months of Advance</label>
+             <select name = "choosen_lag", id="lag" onchange="newPlot()">
+               <option value = 0>0 Months</option>
+               <option value = 6>6 Months</option>
+               <option value = 12 selected>12 Months</option>
+               <option value = 18>18 Months</option>
+             </select>
+          </fieldset>
+    </form>
+    </div>
+
+    <div style="display: inline-block">
+      <fieldset>
+        <legend>Download CSV</legend>
+        <p>
+          <button id="download_button" onclick="downloadCSV()">Download</button>
+      </fieldset>
+    </div>
+  </div>
+
+
+  <iframe id="csv_download" style="display:none;" src=""></iframe>
+
+  <script type="text/javascript">            
+            var recession = [
+                {% for recession in list_of_recessions %}
+                    {% if not forloop.first %},{% endif %}
+                    {
+                        url: "{{ recession.url }}",
+                        date: "{{ recession.date }}",
+                        lag: "{{ recession.lag }}",
+                        percentage: "{{ recession.percentage }}"
+                    }
+                {% endfor %}
+                ];
+
+        function newPlot(){
+            
+            choosenDate = document.forms[0].date.value;
+            choosenLag = document.forms[1].lag.value;
+
+            for (var i in recession) {
+              if (choosenDate == recession[i].date && choosenLag == recession[i].lag) {
+                plotly_link = recession[i].url;
+                percentage = recession[i].percentage;
+              }
+            }
+
+            if (percentage<30) {
+                document.getElementById("green_percent").style.width = percentage+"%";
+                document.getElementById("green_percent").innerHTML = percentage+"%";
+            }else if (percentage>=30 && percentage<60) {
+                document.getElementById("orange_percent").style.width = percentage+"%";
+                document.getElementById("orange_percent").innerHTML = percentage+"%";
+
+            }else{
+                document.getElementById("red_percent").style.width = percentage+"%";
+                document.getElementById("red_percent").innerHTML = percentage+"%";
+
+            }
+            document.getElementById("plotly_url").src = plotly_link+"?link=false";
+            }
+
+
+            var months = [
+              'January', 'February', 'March', 'April', 'May',
+              'June', 'July', 'August', 'September',
+              'October', 'November', 'December'
+              ];
+
+          
+
+        function downloadCSV(){
+          choosenDate = document.forms[0].date.value;
+          choosenLag = document.forms[1].lag.value;
+
+
+            for (var i in recession) {
+              if (choosenDate == recession[i].date && choosenLag == recession[i].lag) {
+                csv_date = recession[i].date;
+                csv_lag = recession[i].lag;
+              }
+            }
+
+            var msec = Date.parse(csv_date);
+
+            var d = new Date(msec);
+            var m = d.getMonth();
+            var day = d.getDate();
+            var year = d.getFullYear();
+            var new_csv_date_format = "("+ months[m]+" "+day+", "+year+")";
+            var domain = "/docs/Files/CSV_Files/"
+
+          document.getElementById('csv_download').src = domain+new_csv_date_format+csv_lag+".csv";
+
+        }  
+  </script>
+
+
+ <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4><u>Product</u></h4>
+    <p>Work Developed at <a href="https://www.tecnico.ulisboa.pt" target="_blank">Instituto Superior Técnico</a></p>
+    <p>Support: recession.usa@gmail.com</p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
