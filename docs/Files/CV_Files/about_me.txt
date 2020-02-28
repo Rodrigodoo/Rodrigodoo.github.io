@@ -24,8 +24,3 @@ I am passionate about Programming, Management, and Game Development. I am also r
 In my spare time I love playing videos games, writing, and travelling.
 
 I'm currently looking for a job that matches my passions and my academic abilities. If you want to be in contact with me, please download my CV and use the contacts available there.
-
-Other Links that might be useful to follow my progress:
-CodinGame: https://www.codingame.com/profile/e1a23661f6faae58127edb5f786c16580510903
-HackerRank: https://www.hackerrank.com/rodrigo_do_o_ba1
-GitHub: https://github.com/Rodrigodoo
