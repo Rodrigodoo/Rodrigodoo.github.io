@@ -1,21 +1,31 @@
-My name is Rodrigo do Ó, an Electrotechnical and Computer Science graduate. I've been studying for the past few years at Instituto Superior Técnico and gained experience with Telecommunications and Computer Science. 
+My name is Rodrigo do Ó, I am an Electrical and Computer Engineer, graduated from Instituto Superior Técnico from the University of Lisbon. I specialized in Computer Science and Telecommunications
 
-During this time I had the opportunity to learn programming languages, like: 
-
-	- Python;
+I can program in: 
+	
+	- C++;
 	- C;
+	- Python;
 	- Java;
+	- Javascript/HTML;
 	- MySQL; 
 
-And computer concepts like:
+And know computer concepts like:
 
+	- Object-Oriented Programming;
+	- Algorithms & Data Structures;
 	- Data Analysis;
 	- Client-Server Architectures;
 	- Network Structures;
 	- Machine Learning Algorithms;
+	- Source Control;
 
-I am resourceful, committed, resilient and passionate about solving problems, learning new things, and working in a team.
+I am passionate about Programming, Management, and Game Development. I am also resourceful, committed, resilient and love solving problems, learning new things, and working in a team.
 
 In my spare time I love playing videos games, writing, and travelling.
 
 I'm currently looking for a job that matches my passions and my academic abilities. If you want to be in contact with me, please download my CV and use the contacts available there.
+
+Other Links that might be useful to follow my progress:
+CodinGame: https://www.codingame.com/profile/e1a23661f6faae58127edb5f786c16580510903
+HackerRank: https://www.hackerrank.com/rodrigo_do_o_ba1
+GitHub: https://github.com/Rodrigodoo
